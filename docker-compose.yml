@@ -1,8 +1,8 @@
 version: "3"
 services:
   metube:
-    image: ghcr.io/alexta69/metube
-    container_name: metube
+    image: metube-local
+    container_name: metube-local
     restart: unless-stopped
     ports:
       - "8081:8081"
@@ -10,7 +10,7 @@ services:
       - STATE_DIR=/state
       - TEMP_DIR=/dl-tmp
       - AUDIO_DOWNLOAD_DIR=/downloads-audio
-      - YTDL_OPTIONS={"download_archive":"/archive/downloaded.txt","writethumbnail":true,"postprocessors":[{"key":"FFmpegThumbnailsConvertor","format":"jpg","when":"before_dl"},{"key":"EmbedThumbnail"}]}
+      - YTDL_OPTIONS={"download_archive":"/archive/downloaded.txt"}
     volumes:
       - /opt/metube/state:/state
       - /opt/metube/archive:/archive
