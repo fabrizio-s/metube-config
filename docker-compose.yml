@@ -1,0 +1,19 @@
+version: "3"
+services:
+  metube:
+    image: ghcr.io/alexta69/metube
+    container_name: metube
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - STATE_DIR=/state
+      - TEMP_DIR=/dl-tmp
+      - AUDIO_DOWNLOAD_DIR=/downloads-audio
+      - YTDL_OPTIONS={"download_archive":"/archive/downloaded.txt","writethumbnail":true,"postprocessors":[{"key":"FFmpegThumbnailsConvertor","format":"jpg","when":"before_dl"},{"key":"EmbedThumbnail"}]}
+    volumes:
+      - /opt/metube/state:/state
+      - /opt/metube/archive:/archive
+      - /mnt/media-vault/Youtube:/downloads
+      - /mnt/media-vault/Music/#new:/downloads-audio
+
